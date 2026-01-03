@@ -25,11 +25,11 @@ export class TransactionService {
     }));
   }
 
-  addTransaction(amount: number, type: 'savings' | 'spend', description?: string): void {
+  addTransaction(amount: number, type: 'savings' | 'spend', description?: string, date?: Date): void {
     const transactions = this.getTransactions();
     const newTransaction: Transaction = {
       id: Date.now().toString(),
-      date: new Date(),
+      date: date || new Date(),
       amount,
       type,
       description: description?.trim() || undefined

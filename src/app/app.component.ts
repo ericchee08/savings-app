@@ -16,8 +16,11 @@ export class AppComponent implements OnInit, AfterViewInit {
   @ViewChild('chartCanvas', { static: false }) chartCanvas!: ElementRef<HTMLCanvasElement>;
   
   savingsAmount: number = 0;
+  savingsDescription: string = '';
+  savingsDate: string = '';
   spendAmount: number = 0;
   spendDescription: string = '';
+  spendDate: string = '';
   transactions: Transaction[] = [];
   chart: Chart | null = null;
   transactionLimit: number = 5;
@@ -30,6 +33,10 @@ export class AppComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.loadTheme();
     this.loadTransactions();
+    // Initialize dates to today
+    const today = new Date().toISOString().split('T')[0];
+    this.savingsDate = today;
+    this.spendDate = today;
   }
 
   loadTheme(): void {
@@ -80,8 +87,11 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   addSavings(): void {
     if (this.savingsAmount > 0) {
-      this.transactionService.addTransaction(this.savingsAmount, 'savings');
+      const date = this.savingsDate ? new Date(this.savingsDate) : new Date();
+      this.transactionService.addTransaction(this.savingsAmount, 'savings', this.savingsDescription, date);
       this.savingsAmount = 0;
+      this.savingsDescription = '';
+      // Keep the date for next entry (don't reset to today)
       this.currentPage = 1; // Reset to first page to show new transaction
       this.loadTransactions();
     }
@@ -89,9 +99,11 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   addSpend(): void {
     if (this.spendAmount > 0) {
-      this.transactionService.addTransaction(this.spendAmount, 'spend', this.spendDescription);
+      const date = this.spendDate ? new Date(this.spendDate) : new Date();
+      this.transactionService.addTransaction(this.spendAmount, 'spend', this.spendDescription, date);
       this.spendAmount = 0;
       this.spendDescription = '';
+      // Keep the date for next entry (don't reset to today)
       this.currentPage = 1; // Reset to first page to show new transaction
       this.loadTransactions();
     }

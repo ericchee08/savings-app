@@ -175,6 +175,23 @@ header h1 {
   color: var(--text-secondary);
 }
 
+.date-input {
+  margin-top: 0.75rem;
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 0.875rem;
+  transition: border-color 0.2s;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+.date-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+}
+
 .btn {
   padding: 0.75rem 1.5rem;
   border: none;

@@ -15,10 +15,10 @@ Chart.register(...registerables);
 export class AppComponent implements OnInit, AfterViewInit {
   @ViewChild('chartCanvas', { static: false }) chartCanvas!: ElementRef<HTMLCanvasElement>;
   
-  savingsAmount: number = 0;
+  savingsAmount: number | null = null;
   savingsDescription: string = '';
   savingsDate: string = '';
-  spendAmount: number = 0;
+  spendAmount: number | null = null;
   spendDescription: string = '';
   spendDate: string = '';
   transactions: Transaction[] = [];
@@ -86,7 +86,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   addSavings(): void {
-    if (this.savingsAmount > 0) {
+    if (this.savingsAmount) {
       const date = this.savingsDate ? new Date(this.savingsDate) : new Date();
       this.transactionService.addTransaction(this.savingsAmount, 'savings', this.savingsDescription, date);
       this.savingsAmount = 0;
@@ -98,7 +98,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   addSpend(): void {
-    if (this.spendAmount > 0) {
+    if (this.spendAmount) {
       const date = this.spendDate ? new Date(this.spendDate) : new Date();
       this.transactionService.addTransaction(this.spendAmount, 'spend', this.spendDescription, date);
       this.spendAmount = 0;

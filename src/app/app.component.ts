@@ -89,7 +89,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     if (this.savingsAmount) {
       const date = this.savingsDate ? new Date(this.savingsDate) : new Date();
       this.transactionService.addTransaction(this.savingsAmount, 'savings', this.savingsDescription, date);
-      this.savingsAmount = 0;
+      this.savingsAmount = null;
       this.savingsDescription = '';
       // Keep the date for next entry (don't reset to today)
       this.currentPage = 1; // Reset to first page to show new transaction
@@ -101,7 +101,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     if (this.spendAmount) {
       const date = this.spendDate ? new Date(this.spendDate) : new Date();
       this.transactionService.addTransaction(this.spendAmount, 'spend', this.spendDescription, date);
-      this.spendAmount = 0;
+      this.spendAmount = null;
       this.spendDescription = '';
       // Keep the date for next entry (don't reset to today)
       this.currentPage = 1; // Reset to first page to show new transaction

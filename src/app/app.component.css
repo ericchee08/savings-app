@@ -154,6 +154,17 @@ header h1 {
   border-color: #3b82f6;
 }
 
+/* Hide spinner buttons on number inputs */
+.input-wrapper input[type="number"]::-webkit-inner-spin-button,
+.input-wrapper input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.input-wrapper input[type="number"] {
+  -moz-appearance: textfield;
+}
+
 .description-input {
   margin-top: 0.75rem;
   width: 100%;
